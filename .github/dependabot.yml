@@ -1,18 +1,9 @@
 version: 2
-registries:
-  github:
-    type: git
-    url: https://github.com
-    username: x-access-token
-    password: ${{secrets.DEPENDABOT_GITHUB_TOKEN }}
 updates:
   - package-ecosystem: "gomod"
     directory: "/"
-    registries:
-      - github
     schedule:
       interval: "daily"
-
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

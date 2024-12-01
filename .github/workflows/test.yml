@@ -1,10 +1,11 @@
-# custom
 on:
   pull_request:
+    branches: [main]
     paths:
       - "**/*.go"
       - "go.*"
   push:
+    branches: [main]
     paths:
       - "**/*.go"
       - "go.*"
@@ -24,28 +25,5 @@ jobs:
         with:
           go-version: stable
 
-      - name: Cache drivers
-        uses: actions/cache@v4
-        with:
-          # In order:
-          # * Driver for linux
-          # * Driver for macOS
-          # * Driver for windows
-          path: |
-            ~/.cache/ms-playwright-go
-            ~/.cache/ms-playwright
-            ~/Library/Caches/ms-playwright-go
-            ~/Library/Caches/ms-playwright
-            ~\AppData\Local\ms-playwright-go
-            ~\AppData\Local\ms-playwright
-          key: playwright-go-${{ runner.os }}-firefox
- 
       - name: Test
         uses: robherley/go-test-action@v0
-
-      - name: Archive production artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: test/dist
